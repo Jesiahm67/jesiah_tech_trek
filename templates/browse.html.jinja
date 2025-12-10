@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="bg-green-300">
+  <body class="bg-yellow-100">
     {% include "components/navbar.html.jinja"%}
 
     <h1 style="text-align: center" class="text-3xl font-bold underline">
@@ -14,16 +14,17 @@
     </h1>
     <br>
 
-
+<main class="grid grid-cols-4 gap-3 max-w-4xl mx-auto p-6 mb-5">
     {% for x in products %}
-    
-    <div>
-    <img src=" {{ x['Image'] }} " >
-    <br>
-    {{ x["Name"] }}<br><br>
-    ${{x["Price"]}}
+    {# use grid to be rigid layout #}
+    <div class="grid">
+    {# Set height of image, and use mx-auto to center #}
+    <img class="h-25 mx-auto" src=" {{ x['Image'] }} " >
+    <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>
+    <div class="text-center font-bold text-sm">${{x["Price"]}}</div>
     
     </div>
     {% endfor%}
+    </main>
   </body>
 </html>
