@@ -13,5 +13,17 @@
       Browse Page
     </h1>
     <br>
+
+
+    {% for x in products %}
+    
+    <div>
+    <img src=" {{ x['Image'] }} " >
+    <br>
+    {{ x["Name"] }}<br><br>
+    ${{x["Price"]}}
+    
+    </div>
+    {% endfor%}
   </body>
 </html>

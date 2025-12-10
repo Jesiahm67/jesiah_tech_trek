@@ -30,10 +30,10 @@ def browse():
     
     cursor = connection.cursor()
     
-    cursor.execute("Select * From `Product`")
+    cursor.execute("SELECT * FROM `Product`")
     
     result = cursor.fetchall()
     
     connection.close()
     
-    return render_template("browse.html.jinja")
+    return render_template("browse.html.jinja", products=result)
