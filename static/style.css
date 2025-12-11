@@ -1,0 +1,22 @@
+.grid-container {
+    display: grid;
+    /* Creates two columns: one auto-sized for the image, one for the text */
+    grid-template-columns: auto 1fr;
+    /* Adds space between the columns */
+    gap: 20px;
+    /* Vertically centers the items within the container */
+    align-items: center; 
+  }
+  
+  .image-area img {
+    /* Ensures the image fits within its grid column */
+    max-width: 100%; 
+    height: auto;
+    display: block; /* Helps with alignment and removes default bottom margin */
+  }
+  
+  /* Optional: Add some padding or styling to the text area */
+  .text-area {
+    padding: 1em;
+  }
+  

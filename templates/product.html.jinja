@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-yellow-100">
+  {% include "components/navbar.html.jinja"%}
+  <br>
+  <br>
+  <div class="flex justify-center items-center gap-5 mx-auto max-w-80/100 text-center mt-25">
+  <div style="width: 60%;">
+ <img src=" {{ product['Image'] }} " >
+     <div class="font-bold text-2xl">{{ product["Name"] }}</div>
+    <div class="font-bold text-2xl">${{ product["Price"] }}</div> 
+  </div>
+    <div class="font-bold text-2xl">{{ product["Description"] }}</div>
+  </div>
+  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out">
+  Add to Cart
+</button>
+  </body>
+</html>
