@@ -14,10 +14,10 @@
     </h1>
     <br>
 
-<main class="grid grid-cols-4 gap-3 max-w-4xl mx-auto p-6 mb-5">
+<main class="grid grid-cols-3 gap-3 max-w-4xl mx-auto p-6 mb-5">
     {% for x in products %}
     {# use grid to be rigid layout #}
-    <div class="grid">
+    <div class="grid gap-2 border p-4 rounded-lg bg-lime-100">
     {# Set height of image, and use mx-auto to center #}
     <img class="h-25 mx-auto" src=" {{ x['Image'] }} " >
     <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>

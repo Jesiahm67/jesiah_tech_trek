@@ -2,3 +2,5 @@ settings.toml
 
 
 __pycache__/
+
+PASSWORD = "224848812"
