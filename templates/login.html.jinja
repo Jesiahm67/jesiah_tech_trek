@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body style="background-image: linear-gradient(to right, lightblue, orange);">
+    {% include "components/navbar.html.jinja"%}
+  <form class="modal-content">
+    <div class="grid gap-3 max-w-4xl mx-auto ">
+    <br>
+      <p style="text-align: center" class="text-3xl font-bold underline">Please fill in this form to create an account.</p>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" style="border:3px solid blue; padding: 5px" required>
+<br><br><br><br><br><br>
+
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" style="border:3px solid blue; padding: 5px" required>
+<br><br><br><br><br><br>
+
+
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" style="border:3px solid blue; padding: 5px" required>
+<br><br><br><br><br><br>
+
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+
+  <div style="text-align: center;" >
+  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
+  Forgot Password
+  </div>
+</button>
+<br>
+  <div style="text-align: center;" >
+  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
+  Submit
+  </div>
+</button>
+    </div>
+  </form>
+</div>
+  </body>
+</html>    

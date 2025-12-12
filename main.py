@@ -51,3 +51,14 @@ def product_page(product_id):
     connection.close()
     
     return render_template("product.html.jinja", product = result)
+
+
+@app.route("/login")
+def login():
+        return render_template("login.html.jinja")
+    
+    
+    
+@app.route("/signup")
+def signup():
+        return render_template("register.html.jinja")
