@@ -9,7 +9,7 @@
   {% include "components/navbar.html.jinja"%}
   <br>
   <br>
-  <div class="flex justify-center items-center gap-5 mx-auto max-w-80/100 text-center mt-25">
+  <div class="flex justify-center items-center gap-5 mx-auto max-w-60/100 text-center mt-25 bg-green-300 p-6 rounded-lg shadow-lg">
   <div style="width: 60%;">
  <img src=" {{ product['Image'] }} " >
      <div class="font-bold text-2xl">{{ product["Name"] }}</div>
@@ -17,8 +17,11 @@
   </div>
     <div class="font-bold text-2xl">{{ product["Description"] }}</div>
   </div>
-  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out">
+  <br>
+  <div style="text-align: center;" >
+  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
   Add to Cart
+  </div>
 </button>
   </body>
 </html>
