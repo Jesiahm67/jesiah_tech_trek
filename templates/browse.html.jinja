@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body style="background-image: linear-gradient(to right, lightblue, yellowgreen);">
+  {# Includes the navbar from the components from another file#}
     {% include "components/navbar.html.jinja"%}
 <div>
 
@@ -15,17 +16,19 @@
       Browse Page
     </h1>
     <br>
-
 <main class="grid grid-cols-3 gap-3 max-w-4xl mx-auto p-6 mb-5">
+{# Use to make for loops in html.jinja #}
     {% for x in products %}
     {# use grid to be rigid layout #}
     <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100">
     {# Set height of image, and use mx-auto to center #}
     <img class="h-25 mx-auto" src=" {{ x['Image'] }} " >
-    <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>
+    <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>
+    {# <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>  Shows the name of the product from your database#}
     <div class="text-center font-bold text-sm">${{x["Price"]}}</div>
     
     </a>
+    {# Used to end loops in html.jinja #}
     {% endfor%}
     </main>
   </body>
