@@ -6,30 +6,40 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body  style="background-image: linear-gradient(to right, lightblue, violet);">
+
     {% include "components/navbar.html.jinja"%}
-  <form class="modal-content">
+      {% for message in get_flashed_messages() %}
+      <li>{{message}}</li>
+
+      {% endfor %}
+
+  <form method="post" class="modal-content">
   {# Creates a 3px gap with a maximum with of 4xl and makes everything in the div in the center #}
     <div class="grid gap-3 max-w-4xl mx-auto ">
     <br>
       <p style="text-align: center" class="text-3xl font-bold underline">Please fill in this form to create an account.</p>
       {# The label makes the text to say what the input is like an email and the input customizes the style of what the input looks like #}
+        <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" style="border:3px solid blue; padding: 5px" required>
+      <br><br><br>
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" style="border:3px solid blue; padding: 5px" required>
-<br><br><br><br><br><br>
+      <br><br><br>
 
       {# The label makes the text to say what the input is like the psw for password and the input customizes the style of what the input looks like #}
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" style="border:3px solid blue; padding: 5px" required>
-<br><br><br><br><br><br>
-
+      <input type="password" placeholder="Enter Password" name="password" style="border:3px solid blue; padding: 5px" required>
+<br><br><br>
       {# The label makes the text to say what the input is like the psw-repeat for the passord to repeat and the input customizes the style of what the input looks like #}
       <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat" style="border:3px solid blue; padding: 5px" required>
-<br><br><br><br><br><br>
-      {# Makes a checkbox so the user can be remembered the next time they sign in#}
-      <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-      </label>
+      <input type="password" placeholder="Repeat Password" name="repeat_password" style="border:3px solid blue; padding: 5px" required>
+<br><br><br>
+      {# The label makes the user write the address#}
+      <label><b>Address</b></label>
+      <input type="text" placeholder="Enter Mailing Address" name="address" style="border:3px solid blue; padding: 5px" required>
+<br><br><br>
+      <label for="birthdate"><b>Birthdate</b></label>
+      <input type="date" placeholder="Enter Birdate" name="birthdate" style="border:3px solid blue; padding: 5px" required>
 {# Creates buttons for the reset and the submit and the class and style makes the color and alignment #}
   <div style="text-align: center;" >
   <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
@@ -38,8 +48,8 @@
 </button>
 <br>
   <div style="text-align: center;" >
-  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
-  Submit
+  <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
+  Register
   </div>
 </button>
     </div>
