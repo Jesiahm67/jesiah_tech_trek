@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="shortcut icon" href="J.M Logo.jpg" type="image/x-icon">
+
   </head>
   <body style="background-image: linear-gradient(to right, lightblue, orange);">
     {% include "components/navbar.html.jinja"%}
@@ -13,18 +15,14 @@
       <p style="text-align: center" class="text-3xl font-bold underline">Login</p>
       
       <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" style="border:3px solid blue; padding: 5px">
+      <input type="text" placeholder="Enter Email" name="email" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
 <br><br><br><br><br><br>
 
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" style="border:3px solid blue; padding: 5px">
+      <input type="password" placeholder="Enter Password" name="psw" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
 <br><br><br><br><br><br>
 
-
-      <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-      </label>
 
   <div style="text-align: center;" >
   <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">

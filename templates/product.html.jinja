@@ -9,10 +9,12 @@
   {% include "components/navbar.html.jinja"%}
   <br>
   <br>
-  {# The div's class styles the page so it looks formated like the items being in the center making a  rounded box outside the text #}
-  <div class="flex justify-center items-center gap-5 mx-auto max-w-60/100 text-center mt-25 bg-green-300 p-6 rounded-lg shadow-lg">
+  {# The div's class styles the page so it looks formated like the items being in the center making a rounded box outside the text #}
+  <div class="flex justify-center items-center gap-5 mx-auto max-w-60/100 text-center mt-25 bg-green-300 p-6 rounded-lg shadow-lg border-4 border-green-600">
   <div style="width: 60%;">
- <img src=" {{ product['Image'] }} " >
+  {# This is a image that displays the product image #}
+ <img src=" {{ product['Image'] }} " alt="Product Image" class="w-full bg-yellow-300 h-auto rounded-lg shadow-md">
+ {# This displays the product name, price and description #}
      <div class="font-bold text-2xl">{{ product["Name"] }}</div>
     <div class="font-bold text-2xl">${{ product["Price"] }}</div> 
   </div>

@@ -4,3 +4,5 @@ settings.toml
 __pycache__/
 
 PASSWORD = "224848812"
+
+secret_key= "ougiaiyuvuqvouvu"

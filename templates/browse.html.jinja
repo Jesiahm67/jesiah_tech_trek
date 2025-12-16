@@ -16,13 +16,13 @@
       Browse Page
     </h1>
     <br>
-<main class="grid grid-cols-3 gap-3 max-w-4xl mx-auto p-6 mb-5">
+<main class="grid grid-cols-3 gap-5 max-w-4xl mx-auto p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600">
 {# Use to make for loops in html.jinja #}
     {% for x in products %}
     {# use grid to be rigid layout #}
-    <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100">
+    <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300">
     {# Set height of image, and use mx-auto to center #}
-    <img class="h-25 mx-auto" src=" {{ x['Image'] }} " >
+    <img class="h-25 mx-auto bg-orange-300 p-2 rounded-lg shadow-md " src=" {{ x['Image'] }} " >
     <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>
     {# <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>  Shows the name of the product from your database#}
     <div class="text-center font-bold text-sm">${{x["Price"]}}</div>
