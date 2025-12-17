@@ -8,19 +8,24 @@
 
   </head>
   <body style="background-image: linear-gradient(to right, lightblue, orange);">
-    {% include "components/navbar.html.jinja"%}
-  <form class="modal-content">
+    
+  {% include "components/navbar.html.jinja"%}
+  
+  {% for message in get_flashed_messages() %}
+  <li>{{message}}</li>
+  {% endfor %}
+  <form method="post" class="modal-content">
     <div class="grid gap-3 max-w-4xl mx-auto ">
     <br>
       <p style="text-align: center" class="text-3xl font-bold underline">Login</p>
       
       <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
+      <input type="text" required placeholder="Enter Email" name="email" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
 <br><br><br><br><br><br>
 
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
+      <input type="password" required placeholder="Enter Password" name="psw" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
 <br><br><br><br><br><br>
 
 
