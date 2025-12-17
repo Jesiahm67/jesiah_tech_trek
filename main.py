@@ -1,14 +1,15 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect # for web framework and rendering templates
 
 from flask_login import LoginManager, login_user # for managing user sessions
 
-import pymysql 
+import pymysql # for connecting to the database
 
-from dynaconf import Dynaconf
+from dynaconf import Dynaconf # for managing configuration settings
 
-app = Flask(__name__)
+app = Flask(__name__) 
+# Load configuration from settings.toml
 
-config = Dynaconf(settings_file=["settings.toml"])
+config = Dynaconf(settings_file=["settings.toml"])# Load secret key from configuration
 
 app.secret_key = config.secret_key
 
@@ -83,33 +84,7 @@ def product_page(product_id):
     connection.close()
     
     return render_template("product.html.jinja", product = result)
-
-
-@app.route("/login", methods = ["POST", "GET"])
-def login():
-    if request.method == 'POST':
-        email = request.form["email"]
-        password = request.form["password"]
-        #connection to the Database
-        connection = connect_db()
-        cursor = connection.cursor()
-        #executing sql code
-        cursor.execute("SELECT * FROM `User` WHERE `Email` = %s", (email))
-        result = cursor.fetchone()
-        connection.close()
-        if result is None:
-            flash("No user found")
-        elif password != result["Password"]:
-            flash("Incorrect password")
-        else:
-            login_user(User(result))#user now is successfully logged in.
-            return redirect('/browse')
-        
-
-    return render_template("login.html.jinja")
-    
-    
-    
+   
 @app.route('/signup', methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
@@ -142,3 +117,38 @@ def signup():
                 return redirect('/login')
         
     return render_template("register.html.jinja")
+@app.route("/login", methods = ["POST", "GET"])
+def login():
+    if request.method == 'POST':
+        email = request.form["email"]
+        password = request.form["psw"]
+        #connection to the Database
+        connection = connect_db()
+        cursor = connection.cursor()
+        #executing sql code
+        cursor.execute("SELECT * FROM `User` WHERE `Email` = %s", (email))
+        result = cursor.fetchone()
+        connection.close()
+        if result is None:
+            flash("No user found")
+        elif password != result["Password"]:
+            flash("Incorrect password")
+        else:
+            login_user(User(result))#user now is successfully logged in.
+            return redirect('/browse')
+        
+
+    return render_template("login.html.jinja")
+
+@app.route("/logout", methods=["POST", "GET"])
+@login_manager.login_required
+def logout():
+    from flask_login import logout_user
+    logout_user("/login")
+    flash("You have been logged out")
+    return redirect('/')
+
+@app.route("/dashboard", methods=["POST", "GET"])
+@login_manager.login_required
+def dashboard():
+    return render_template("dashboard.html.jinja")
