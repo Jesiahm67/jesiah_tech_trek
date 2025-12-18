@@ -1,19 +1,17 @@
 <nav class="bg-blue-400 p-4 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
 <a href="/">Techbar</a>
 <div class="flex items-center gap-5">
-    <a style="color: red; text-decoration-line:underline" href="/browse"> Browse </a>
-    <a style="color: orange; text-decoration-line:underline" href=""> Contacts </a>
-    <a style="color: yellow; text-decoration-line:underline" href=""> Sales </a>
-    <a style="color: green; text-decoration-line:underline" href=""> Wishlist</a>
+
     {% if not current_user.is_authenticated %}
     <a style="color: purple; text-decoration-line:underline" href="/signup" class="button-link"> Sign Up </a>   
 
     {% elif current_user.is_authenticated %}
-    <div>
-         Hi, {{ current_user.name }}!
-        <a style="color: purple; text-decoration-line:underline" href="/logout" class="button-link"> Logout </a>
-
-    </div>
+    <a style="color: red; text-decoration-line:underline" href="/browse"> Browse </a>
+    <a style="color: orange; text-decoration-line:underline" href=""> Contacts </a>
+    <a style="color: yellow; text-decoration-line:underline" href=""> Sales </a>
+    <a style="color: green; text-decoration-line:underline" href=""> Wishlist</a>
+    <a style="color: purple; text-decoration-line:underline" href="/logout" class="button-link"> Logout </a>
+Hi, {{ current_user.name }}!
     {% endif %}
 </div>
 </nav>

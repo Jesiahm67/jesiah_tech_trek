@@ -14,7 +14,7 @@
   {% for message in get_flashed_messages() %}
   <li>{{message}}</li>
   {% endfor %}
-  <form method="post" class="modal-content">
+  <form method="post" class="modal-content animate bg-yellow-100 p-6 rounded-lg max-w-3xl mx-auto mt-10 shadow-lg border-4 border-blue-600 items-center"> 
     <div class="grid gap-3 max-w-4xl mx-auto ">
     <br>
       <p style="text-align: center" class="text-3xl font-bold underline">Login</p>
@@ -35,14 +35,6 @@
 No account
   </div>
   </a>
-</button>
-<br>
-  <div style="text-align: center;" >
-  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
-  <a href="/"> 
-  Submit
-  </a>
-  </div>
 </button>
     </div>
   </form>

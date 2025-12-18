@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session # for web framework and rendering templates
+from flask import Flask, render_template, request, flash, redirect, session, abort  # for web framework and rendering templates
 
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user# for user authentication
+from flask_login import LoginManager, login_user, logout_user, login_required# for user authentication
 
 login_manager = LoginManager()# for managing user sessions and authentication
 
@@ -16,6 +16,8 @@ config = Dynaconf(settings_file=["settings.toml"])# Load secret key from configu
 app.secret_key = config.secret_key
 
 login_manager = LoginManager(app) 
+
+login_manager.login_view = "/login"
 
 class User:
     is_authenticated = True
@@ -62,6 +64,10 @@ def index():
     user = session.get("user")
     return render_template("homepage.html.jinja")
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html.jinja")
+
 @app.route("/browse")
 def browse():
     connection = connect_db()
@@ -88,9 +94,12 @@ def product_page(product_id):
     
     connection.close()
     
+    if result is None: 
+       return redirect("/dashboard") # If no product is found, return a 404 error
+    
     return render_template("product.html.jinja", product = result)
    
-@app.route('/signup', methods=["POST", "GET"])
+@app.route('/signup', methods=["POST", "GET"])# User Registration
 def signup():
     if request.method == "POST":
         name=request.form["name"]
