@@ -6,19 +6,20 @@
     <a style="color: yellow; text-decoration-line:underline" href=""> Sales </a>
     <a style="color: green; text-decoration-line:underline" href=""> Wishlist</a>
     {% if not current_user.is_authenticated %}
-    <a style="color: blue; text-decoration-line:underline" href="/login"class="btn-link"> Login </a>
-    {% else%}
+    <a style="color: purple; text-decoration-line:underline" href="/signup" class="button-link"> Sign Up </a>   
+
+    {% elif current_user.is_authenticated %}
     <div>
          Hi, {{ current_user.name }}!
+        <a style="color: purple; text-decoration-line:underline" href="/logout" class="button-link"> Logout </a>
+
     </div>
     {% endif %}
-
-    {% if current_user.is_authenticated %}
-    <a style="color: purple; text-decoration-line:underline" href="/logout" class="button-link"> Logout </a>
-    {% else %}
-    <a style="color: purple; text-decoration-line:underline" href="/signup" class="button-link"> Sign Up </a>
-    {% endif %}
 </div>
+</nav>
+
+
+
 
 <style>
 .btn-link {
@@ -46,6 +47,4 @@ border-radius: 10px;
 background-color: orangered;
 }
 </style>
-</div>
 
-</nav>

@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect # for web framework and rendering templates
+from flask import Flask, render_template, request, flash, redirect, url_for, session # for web framework and rendering templates
 
-from flask_login import LoginManager, login_user # for managing user sessions
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user# for user authentication
+
+login_manager = LoginManager()# for managing user sessions and authentication
 
 import pymysql # for connecting to the database
 
@@ -39,6 +41,8 @@ def load_user(user_id):
 
     if result is None:
         return None
+    
+    
     return User(result)
 
 def connect_db():
@@ -55,8 +59,9 @@ def connect_db():
 
 @app.route("/")
 def index():
-    
+    user = session.get("user")
     return render_template("homepage.html.jinja")
+
 @app.route("/browse")
 def browse():
     connection = connect_db()
@@ -140,15 +145,10 @@ def login():
 
     return render_template("login.html.jinja")
 
-@app.route("/logout", methods=["POST", "GET"])
-@login_manager.login_required
-def logout():
-    from flask_login import logout_user
-    logout_user("/login")
-    flash("You have been logged out")
-    return redirect('/')
 
-@app.route("/dashboard", methods=["POST", "GET"])
-@login_manager.login_required
-def dashboard():
-    return render_template("dashboard.html.jinja")
+@app.route("/logout", methods=['GET', 'POST'] )
+@login_required
+def logout():
+    logout_user() # Logs out the current user
+    flash("You have been logged out.") # Notify the user
+    return redirect("/")
