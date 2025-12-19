@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session, abort  # for web framework and rendering templates
 
-from flask_login import LoginManager, login_user, logout_user, login_required# for user authentication
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user# for user authentication
 
 login_manager = LoginManager()# for managing user sessions and authentication
 
@@ -63,6 +63,22 @@ def connect_db():
 def index():
     user = session.get("user")
     return render_template("homepage.html.jinja")
+
+@app.route("/contact")
+def contacts():
+    return render_template("contacts.html.jinja")
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html.jinja")
+
+@app.route("/sales")
+def sales():
+    return render_template("sales.html.jinja")
+
+@app.route("/wishlist")
+def wishlist():
+    return render_template("wishlist.html.jinja")
 
 @app.route("/dashboard")
 def dashboard():
@@ -131,6 +147,7 @@ def signup():
                 return redirect('/login')
         
     return render_template("register.html.jinja")
+
 @app.route("/login", methods = ["POST", "GET"])
 def login():
     if request.method == 'POST':
@@ -154,10 +171,28 @@ def login():
 
     return render_template("login.html.jinja")
 
-
 @app.route("/logout", methods=['GET', 'POST'] )
 @login_required
 def logout():
     logout_user() # Logs out the current user
     flash("You have been logged out.") # Notify the user
     return redirect("/")
+
+@app.route("/product/<product_id>/add_to_cart", methods=['POST'])
+@login_required
+def add_to_cart(product_id):
+    
+    quantity = request.form["Quantity"]# Get quantity from form data
+    
+    connection = connect_db()
+    
+    cursor = connection.cursor()
+    
+    cursor.execute("""
+        INSERT INTO `Cart` (`Quantity`, `ProductID`, `UserID`) # Add product to cart
+        VALUES (%s, %s, %s)
+        ON DUPLICATE KEY UPDATE `Quantity` = `Quantity` + %s
+    """, (quantity, product_id, current_user.id, quantity))
+    connection.close()
+    
+    return redirect("/cart")
