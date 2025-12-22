@@ -68,17 +68,6 @@ def index():
 def contacts():
     return render_template("contacts.html.jinja")
 
-@app.route("/cart")
-def cart():
-    return render_template("cart.html.jinja")
-
-@app.route("/sales")
-def sales():
-    return render_template("sales.html.jinja")
-
-@app.route("/wishlist")
-def wishlist():
-    return render_template("wishlist.html.jinja")
 
 @app.route("/dashboard")
 def dashboard():
@@ -189,10 +178,32 @@ def add_to_cart(product_id):
     cursor = connection.cursor()
     
     cursor.execute("""
-        INSERT INTO `Cart` (`Quantity`, `ProductID`, `UserID`) # Add product to cart
-        VALUES (%s, %s, %s)
-        ON DUPLICATE KEY UPDATE `Quantity` = `Quantity` + %s
+        INSERT INTO `Cart` (`Quantity`, `ProductID`, `UserID`) 
+        VALUES (%s, %s, %s) 
+        ON DUPLICATE KEY UPDATE 
+        `Quantity` = `Quantity` + %s
+        
     """, (quantity, product_id, current_user.id, quantity))
+    
     connection.close()
     
     return redirect("/cart")
+
+@app.route("/cart")
+@login_required
+def view_cart():
+    connection = connect_db()
+    
+    cursor = connection.cursor()
+    
+    cursor.execute("""
+        SELECT * FROM `Cart`
+        JOIN `Product` ON `Product`.`ID` = `Cart`.`ProductID`
+        WHERE `UserID` = %s
+    """, (current_user.id))
+    
+    results = cursor.fetchall()
+    
+    connection.close()
+    
+    return render_template("cart.html.jinja", cart_items=results)
