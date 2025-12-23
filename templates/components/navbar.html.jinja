@@ -1,6 +1,6 @@
-<nav class="bg-blue-400 p-4 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
-<a href="/">Techbar</a>
-<div class="flex items-center gap-5">
+<nav class="bg-blue-400 p-4 flex items-center justify-between shadow-lg border-b-4 border-blue-600 md:h-full md:w-full md:font-size-10">
+<a class="text-sm md:text-lg lg:text-xl" href="/">Techbar</a>
+<div class="flex items-center gap-5 text-sm md:text-lg lg:text-xl">
 
     {% if not current_user.is_authenticated %}
     <a style="color: purple; text-decoration-line:underline" href="/signup" class="button-link"> Sign Up </a>   
@@ -11,8 +11,10 @@
     <a style="color: yellow; text-decoration-line:underline" href="/sales"> Sales </a>
     <a style="color: green; text-decoration-line:underline" href="/wishlist"> Wishlist</a>
     <a style="color: purple; text-decoration-line:underline" href="/logout" class="button-link"> Logout </a>
+
 Hi, {{ current_user.name }}!
     {% endif %}
+
 </div>
 </nav>
 
