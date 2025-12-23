@@ -1,39 +1,48 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body style="background-image: linear-gradient(to right, lightblue, pink);">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body style="background-image: linear-gradient(to right, lightblue, pink);">
   {% include "components/navbar.html.jinja"%}
   <br>
   <br>
-  {# The div's class styles the page so it looks formated like the items being in the center making a rounded box outside the text #}
-<div class="flex justify-center items-center gap-5 mx-auto max-w-60/100 text-center mt-25 bg-green-300 p-6 rounded-lg shadow-lg border-4 border-green-600">
-  <div style="width: 60%;">
-  {# This is a image that displays the product image #}
- <img src=" {{ product['Image'] }} " alt="Product Image" class="w-full bg-yellow-300 h-auto rounded-lg shadow-md">
- {# This displays the product name, price and description #}
-     <div class="font-bold text-xl">{{ product["Name"] }}</div>
-     
+  {# The div's class styles the page so it looks formated like the items being in the center making a rounded box
+  outside the text #}
+  <!-- Product Display Container -->
+  <div class="max-w-4xl mx-auto mt-10 p-6 bg-green-200 rounded-lg shadow-lg border-4 border-blue-600">
+    <div class="grid gap-6 md:grid-cols-2 items-center ">
 
-    <div class="font-bold text-xl">${{ product["Price"] }}</div> 
+      <!-- Image + Name + Price -->
+      <div class="flex flex-col items-center "> <img src="{{ product['Image'] }}" alt="Product Image"
+          class="w-48 h-48 object-contain p-2 rounded-lg shadow-md bg-orange-300">
+        <div class="font-bold text-lg mt-2">{{ product["Name"] }}</div>
+        <div class="font-bold text-md text-green-700">${{ product["Price"] }}</div>
+      </div> <!-- Description -->
+    <div class="font-bold text-lg md:text-base px-4">{{ product["Description"] }}</div>
+    </div>
   </div>
-    <div class="font-bold text-xl">{{ product["Description"] }}</div>
-  </div>
-  <br>
-  <form method="post" action="/product/{{ product['ID'] }}/add_to_cart" class="modal-content animate bg-yellow-100 p-6 rounded-lg max-w-2xl mx-auto mt-10 shadow-lg border-4 border-blue-600 items-center">
-  <div style="text-align: center" >
-  <label for="quantity" class="font-bold text-lg mr-2">Quantity:</label>
-  <input type="number" id="quantity" name="Quantity" value="1" min="1" max="3" class="border-2 border-blue-600 rounded-md p-2 w-20 text-center">
 
-  </input>
-  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
-  Add to Cart
- 
-  </button>
-</div>
+  <!-- Add to Cart Form -->
+  <form method="post" action="/product/{{ product['ID'] }}/add_to_cart"
+    class="bg-yellow-100 p-6 rounded-lg max-w-2xl mx-auto mt-10 shadow-lg border-4 border-blue-600">
+
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+      <label for="quantity" class="font-bold text-lg">Quantity:</label>
+
+      <input type="number" id="quantity" name="Quantity" value="1" min="1" max="3"
+        class="border-2 border-blue-600 rounded-md p-2 w-20 text-center">
+
+      <button
+        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out">
+        Add to Cart
+      </button>
+    </div>
   </form>
-  </body>
+</body>
+
 </html>

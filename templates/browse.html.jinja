@@ -6,32 +6,22 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body style="background-image: linear-gradient(to right, lightblue, yellowgreen);">
-  {# Includes the navbar from the components from another file#}
     {% include "components/navbar.html.jinja"%}
-<div>
 
-</div>
-    <h1 style="text-align: center" class="text-3xl font-bold underline">
-    <br>
+    <h1 class="text-center text-3xl font-bold underline my-8">
       Browse Page
     </h1>
-    <br>
-<main class="grid grid-cols-3 gap-5 max-w-4xl mx-auto p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600">
-{# Use to make for loops in html.jinja #}
-    {% for x in products %}
-    {# use grid to be rigid layout #}
-    <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300">
-    {# Set height of image, and use mx-auto to center #}
-    <img class="h-25 mx-auto bg-orange-300 p-2 rounded-lg shadow-md " src=" {{ x['Image'] }} " >
-    <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>
-    <div class="text-center font-bold text-sm">{{ x["Category"] }} </div>
 
-    {# <div class="text-center font-bold text-sm">{{ x["Name"] }} </div>  Shows the name of the product from your database#}
-    <div class="text-center font-bold text-sm">${{x["Price"]}}</div>
-    
-    </a>
-    {# Used to end loops in html.jinja #}
-    {% endfor%}
+    <!-- Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop -->
+    <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600">
+        {% for x in products %}
+        <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <img class="h-32 w-full object-contain mx-auto bg-orange-300 p-2 rounded-lg shadow-md" src="{{ x['Image'] }}" alt="{{ x['Name'] }}">
+            <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>
+            <div class="text-center text-gray-600 text-xs">{{ x["Category"] }}</div>
+            <div class="text-center font-bold text-sm text-blue-700">${{x["Price"]}}</div>
+        </a>
+        {% endfor%}
     </main>
   </body>
 </html>
