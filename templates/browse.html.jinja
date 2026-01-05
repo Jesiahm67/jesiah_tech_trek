@@ -13,9 +13,9 @@
     </h1>
 
     <!-- Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop -->
-    <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600">
+    <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600 focus-within:border-blue-800">
         {% for x in products %}
-        <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300">
+        <a href="/product/{{ x['ID']}}" class="grid gap-2 border p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center">
             <img class="h-32 w-full object-contain mx-auto bg-orange-300 p-2 rounded-lg shadow-md" src="{{ x['Image'] }}" alt="{{ x['Name'] }}">
             <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>
             <div class="text-center text-gray-600 text-xs">{{ x["Category"] }}</div>
