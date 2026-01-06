@@ -206,7 +206,10 @@ def view_cart():
     
     connection.close()
     
-    return render_template("cart.html.jinja", cart_items=results)
+    grand_total = sum(item['Price'] * item['Quantity'] for item in results)
+    
+    # Pass 'total' to the template
+    return render_template("cart.html.jinja", cart_items=results, total=grand_total)
 
 @app.route("/cart/<product_id>/update_qty", methods=['POST'])
 @login_required
