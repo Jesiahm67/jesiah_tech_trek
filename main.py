@@ -259,3 +259,43 @@ def remove_from_cart(product_id):
     connection.close()
     
     return redirect("/cart")
+
+@app.route("/checkout", methods=['GET', 'POST'])
+@login_required
+def checkout():
+    connection = connect_db()
+    
+    cursor = connection.cursor()
+    
+    cursor.execute("""
+        SELECT * FROM `Cart`
+        JOIN `Product` ON `Product`.`ID` = `Cart`.`ProductID`
+        WHERE `UserID` = %s
+    """, (current_user.id))
+    
+    results = cursor.fetchall()
+
+
+    
+    if request.method == 'POST':
+        cursor.execute("INSERT INTO `Order_Sale` (`UserID`) VALUES (%s)", (current_user.id) )
+        # store product bought
+        sale = cursor.lastrowid
+        for item in results:
+            cursor.execute("INSERT INTO `Order_cart` (`Order_SaleID`, `ProductID`,`Quantity`) VALUES (%s, %s, %s) ",
+                           (sale, item['ProductID'], item['Quantity']) )
+    # clear the cart
+        cursor.execute("DELETE FROM `Cart` WHERE `UserID` = %s", (current_user.id) )
+        return redirect("/thank_you")
+    #thank the user for their purchase
+        
+    connection.close()
+    
+    grand_total = sum(item['Price'] * item['Quantity'] for item in results)
+    
+    # Pass 'total' to the template
+    return render_template("checkout.html.jinja", cart_items=results, total=grand_total)
+@app.route("/thank_you")
+@login_required
+def thank_you():
+    return render_template("thank_you.html.jinja")
