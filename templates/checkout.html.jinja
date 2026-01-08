@@ -1,108 +1,92 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body style="background-image: linear-gradient(to right, lightblue, yellow);">
+<body style="background-image: linear-gradient(to right, lightblue, yellow);" class="min-h-screen pb-20">
   {% include "components/navbar.html.jinja"%}
-  <br>
-  <h1 style="text-align: center" class="text-4xl font-bold underline"> Checkout</h1>
-  <br>
-  <br>
-  {%if cart_items%}
-  <main class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-2xl ml-6 p-6 mb-5 bg-blue-400 rounded-lg shadow-lg border-4 border-blue-600">
 
-    {# Use to make for loops in html.jinja #}
-    {% for x in cart_items %}
+  <div class="max-w-6xl mx-auto px-4 mt-10">
+    <h1 class="text-center text-4xl font-bold underline mb-10">Checkout</h1>
 
-<div class="grid gap-2 border-4 border-red-400 p-4 rounded-lg bg-lime-100 shadow-md hover:shadow-lg transition-shadow duration-300">
+    {% if cart_items %}
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+      
+      <div class="w-full lg:w-3/5 bg-blue-400 p-6 rounded-lg shadow-lg border-4 border-blue-600">
+        <h2 class="text-2xl font-bold text-white mb-4">1. Review Items</h2>
+        <div class="grid grid-cols-1 gap-4">
+          {% for x in cart_items %}
+          <div class="flex items-center gap-4 border-2 border-red-400 p-4 rounded-lg bg-lime-100 shadow-sm transition-all hover:shadow-md">
+            <img class="h-20 w-20 object-contain bg-orange-300 p-1 rounded-md border-2 border-orange-400" src="{{ x['Image'] }}">
+            
+            <div class="flex-1">
+              <div class="font-bold text-lg leading-tight">{{ x["Name"] }}</div>
+              <div class="text-sm text-gray-600 font-semibold mt-1">Qty: {{ x["Quantity"] }}</div>
+            </div>
 
-  <img class="h-25 mx-auto bg-orange-300 p-2 rounded-lg shadow-md" src="{{ x['Image'] }}">
-  <div class="text-center font-bold text-sm">{{ x["Name"] }}</div>
-  <div class="text-center font-bold text-sm text-gray-600">{{ x["Category"] }}</div>
-  
-  <div class="text-center font-bold text-sm">
-    {% if x['Quantity'] > 0 %}
-      Total: ${{ x['Price'] * x['Quantity'] }}
+            <div class="text-right">
+              <div class="text-blue-700 font-black text-xl">
+                ${{ "%.2f"|format(x['Price'] * x['Quantity']) }}
+              </div>
+              <div class="text-[10px] text-gray-500 italic">(${{ "%.2f"|format(x['Price']) }} ea.)</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+        <div class="mt-6 p-4 bg-green-200 rounded-lg border-4 border-green-600 flex justify-between items-center px-8">
+            <span class="text-xl font-bold text-green-900 uppercase">Subtotal</span>
+            <span class="text-3xl font-black text-green-900">${{ "%.2f"|format(total) }}</span>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-2/5 flex flex-col gap-6 lg:sticky lg:top-10">
+        
+        <div class="bg-yellow-100 p-6 rounded-lg shadow-lg border-4 border-blue-600">
+          <h2 class="text-2xl font-bold underline text-center mb-6">2. Order Details</h2>
+          
+          <form class="space-y-4">
+            <div>
+              <label class="block font-bold text-sm mb-1 uppercase text-gray-700">Account Email</label>
+              <input type="text" value="{{ current_user.email }}" readonly class="w-full bg-blue-100 p-3 rounded border-b-4 border-blue-600 cursor-not-allowed font-semibold text-blue-900">
+            </div>
+            
+            <div>
+              <label class="block font-bold text-sm mb-1 uppercase text-gray-700">Shipping Address</label>
+              <textarea class="w-full bg-white p-3 rounded border-b-4 border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400" rows="3">{{ current_user.address }}</textarea>
+            </div>
+          </form>
+
+          <div class="mt-6 text-center border-t border-yellow-300 pt-4">
+             <p class="text-[10px] italic text-gray-500 mb-2 uppercase">Is this information incorrect?</p>
+             <a href="/logout" class="text-blue-600 hover:text-blue-800 underline font-black text-xs uppercase tracking-widest">Logout / Switch User</a>
+          </div>
+        </div>
+
+        <form method="post" action="/checkout/confirm">
+          <button type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold py-5 px-8 rounded-xl shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 text-2xl border-b-8 border-green-800 group">
+            <span class="inline-block group-hover:animate-pulse">CONFIRM PURCHASE</span>
+          </button>
+        </form>
+        
+        <div class="flex items-center justify-center gap-2 text-gray-500 text-[10px] mt-2 font-bold uppercase tracking-widest">
+            <span class="text-green-600 text-base">✔</span> Encrypted & Secure Checkout
+        </div>
+      </div>
+
+    </div>
+
     {% else %}
-      <span class="text-red-500 italic">Out of Stock</span>
+    <div class="text-center p-12 bg-white rounded-lg shadow-lg border-4 border-blue-600 max-w-xl mx-auto">
+      <p class="text-2xl font-bold mb-6">Your cart is empty!</p>
+      <a href="/browse" class="inline-block bg-blue-600 text-white px-10 py-4 rounded-full font-black hover:bg-blue-700 transition-transform hover:scale-110">GO FIND PARTS</a>
+    </div>
     {% endif %}
   </div>
 
-  <form method="POST" action="/cart/{{ x['ProductID'] }}/update_qty" class="flex flex-col items-center gap-2 mt-2">
-    <input type="number" name="qty" value="{{ x['Quantity'] }}" min="0"
-           class="border-2 border-blue-600 rounded-md p-2 w-24 text-center">
-    
-    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md w-full text-xs">
-      Update Quantity
-    </button>
-  </form>
-
-  <form method="POST" action="/cart/{{ x['ProductID'] }}/delete_qty" class="text-center">
-    <input type="hidden" name="qty" value="0">
-    <button type="submit" class="text-red-600 hover:text-red-800 text-xs font-bold underline">
-        Remove Item
-    </button>
-  </form>
-
-  <div class="text-center text-xs text-gray-500 mt-2 border-t pt-2">
-    Unit Price: ${{ x["Price"] }}
-  </div>
-</div>
-{% endfor %}
-  </main>
-<main class="">
-  <form method="post" class="modal-content animate bg-yellow-100 p-6 rounded-lg max-w-3xl mx-auto mt-10 shadow-lg border-4 border-blue-600 items-center"> 
-    <div class="grid gap-3 max-w-4xl mx-auto ">
-    <br>
-      <p style="text-align: center" class="text-3xl font-bold underline">Login</p>
-      
-      <label for="email"><b>Email</b></label>
-      <input type="text" required placeholder="Enter Email" name="email" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
-<br><br><br><br><br><br>
-
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" required placeholder="Enter Password" name="psw" class="bg-blue-400 p-2 flex items-center justify-between shadow-lg border-b-4 border-blue-600">
-<br><br><br><br><br><br>
-
-
-  <div style="text-align: center;" >
-  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center">
-   <a href="/signup" style="color: white; text-decoration-line: underline;">
-No account
-  </div>
-  </a>
-</button>
-    </div>
-  </form>
-</div>
-</main>
-  <div class=" p-6 bg-green-200 rounded-lg shadow-lg border-4 border-blue-600 text-center max-w-4xl mx-auto mb-5">
-    <div class="text-2xl font-bold">
-      Cart Total:
-${{ total }}
-    </div>
-  </div>
-  {% else %}
-  <div class="text-center p-6 bg-green-200 rounded-lg shadow-lg border-4 border-blue-600 max-w-4xl mx-auto mb-5">
-    <p class="text-xl font-bold">Your cart is empty.</p>
-    <a href="/browse" class="hover:underline font-semibold" style="color: indigo;">Browse</a>
-  </div>
-  
-  {% endif %}
-<div class="flex justify-center mb-10">
-<form method="post" action="/checkout/confirm" class="text-center">
-  <button type="submit"
-    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all duration-200 hover:scale-105 active:scale-95 text-lg">
-    Confirm Purchase
-  </button>
-</div>
-</form>
 </body>
-
 </html>
