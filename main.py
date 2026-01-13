@@ -286,7 +286,7 @@ def checkout():
                            (sale, item['ProductID'], item['Quantity']) )
     # clear the cart
         cursor.execute("DELETE FROM `Cart` WHERE `UserID` = %s", (current_user.id) )
-        return redirect("/thank_you")
+        return redirect("/order")
     #thank the user for their purchase
         
     connection.close()
@@ -299,3 +299,26 @@ def checkout():
 @login_required
 def thank_you():
     return render_template("thank_you.html.jinja")
+
+@app.route("/order")
+@login_required
+def Order():
+    connection = connect_db()
+    cursor = connection.cursor()
+    cursor.execute("""
+    SELECT
+        `Order_Sale`.`ID`,
+        `Order_Sale`.`Timestamp`, 
+        SUM(`Order_cart`. Quantity ) AS 'Quantity', 
+        SUM(`Order_cart`.`Quantity` * `Product`.`Price`) AS 'Total'
+    FROM `Order_Sale`
+    JOIN `Order_cart` ON `Order_SaleID` = `Order_Sale`.`ID`
+    JOIN `Product` ON `Product`.`ID` = `Order_cart`.`ProductID`
+    WHERE `UserID` = %s 
+    GROUP BY `Order_Sale`.`ID`;
+    """, (current_user.id,) )
+
+    result = cursor.fetchall()
+    connection.close()  
+
+    return render_template("order.html.jinja", order=result)
