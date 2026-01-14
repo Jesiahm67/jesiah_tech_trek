@@ -94,15 +94,25 @@ def product_page(product_id):
     cursor = connection.cursor()
     
     cursor.execute("SELECT * FROM `Product` WHERE `ID` = %s", (product_id) )
-    
+                
     result = cursor.fetchone()
+    
+    connection.close()
+    
+    connection = connect_db()
+    
+    cursor = connection.cursor()
+    
+    cursor.execute("""SELECT * FROM `Review` JOIN `User` ON `Review`.`UserID` = `User`.`ID` WHERE `ProductID` = %s""", (product_id) )
+    
+    reviews = cursor.fetchall()
     
     connection.close()
     
     if result is None: 
        return redirect("/dashboard") # If no product is found, return a 404 error
     
-    return render_template("product.html.jinja", product = result)
+    return render_template("product.html.jinja", product = result , reviews=reviews)
    
 @app.route('/signup', methods=["POST", "GET"])# User Registration
 def signup():
