@@ -10,10 +10,12 @@
   <body style="background-image: linear-gradient(to right, lightblue, orange);">
     
   {% include "components/navbar.html.jinja"%}
-  
+  {# Use to make for loops in html.jinja #}
+  {# Flash message display #}
   {% for message in get_flashed_messages() %}
   <li>{{message}}</li>
   {% endfor %}
+  {# End flash message display #}
   <form method="post" class="modal-content animate bg-yellow-100 p-6 rounded-lg max-w-3xl mx-auto mt-10 shadow-lg border-4 border-blue-600 items-center"> 
     <div class="grid gap-3 max-w-4xl mx-auto ">
     <br>

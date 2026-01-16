@@ -6,19 +6,21 @@
     <!-- Using Tailwind 4 via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
+  {# Background gradient from lightblue to pink #}
   <body style="background-image: linear-gradient(to right, lightblue, pink);">
     {% include "components/navbar.html.jinja"%}
-    
+    {# Main container #}
     <div class="grid gap-3 max-w-4xl mx-auto px-4">
       
       <h1 class="text-center text-3xl md:text-4xl font-bold underline mt-8 mb-4 text-green-900 uppercase tracking-tight">
       Thank You for Your Purchase!
       </h1>
-
+{# Thank you message #}
         <p class="text-center text-lg md:text-xl mb-6 text-green-800 font-semibold">
             We appreciate your business. Your order has been successfully processed.</p>
           <button type="submit"class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 ease-in-out justify-center text-center mx-auto flex group">
             <a href="/browse">
+            {# Link to browse more products #}
             <span class="inline-block group-hover:animate-pulse">Wanna buy more?</span>
             </a>
           </button>

@@ -17,18 +17,23 @@
             Order Confirmation
         </h1>
 <div class="space-y-4 max-w-lg mx-auto">
+{# Use to make for loops in html.jinja #}
     {% for x in order %}
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow">
         <div class="flex justify-between items-center mb-2">
+        {# Order Date #}
             <span class="text-sm font-medium text-gray-500">{{ x['Timestamp'].strftime('%F') }}</span>
+            {# Order ID and Status #}
             <span class="px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">
                 Order ID: #{{ x['ID'] }}
             </span>
+            {# Order Quantity #}
             <span class="px-2 py-1 text-xs font-semibold text-green-600 bg-green-50 rounded-full">
                 Status: {{ x['Quantity'] }}
             </span>
         </div>
         <div class="text-lg font-bold text-gray-900 mb-2 border-b pb-2">
+        {# Order Total #}
             Total Amount: <span class="text-green-600">${{ x['Total'] }}</span>
         </div>
     </div>
