@@ -18,11 +18,12 @@
     <div class="grid gap-6 md:grid-cols-2 items-center text-center text-gray-800">
 
       <!-- Image + Name + Price -->
-      <div class="flex flex-col items-center"> <img src="{{ product['Image'] }}" alt="Product Image" class="w-48 h-48 object-contain p-2 rounded-lg shadow-md bg-orange-300 border-2 border-orange-400">
+      <div class="flex flex-col items-center"> <img src="{{ product['Image'] }}" alt="Product Image"
+          class="w-48 h-48 object-contain p-2 rounded-lg shadow-md bg-orange-300 border-2 border-orange-400">
         <div class="font-bold text-lg mt-2">{{ product["Name"] }}</div>
         <div class="font-bold text-md text-green-700">${{ product["Price"] }}</div>
       </div> <!-- Description -->
-    <div class="font-bold text-lg md:text-base px-4">{{ product["Description"] }}</div>
+      <div class="font-bold text-lg md:text-base px-4">{{ product["Description"] }}</div>
     </div>
   </div>
 
@@ -43,52 +44,52 @@
     </div>
   </form>
   <!-- Customer Reviews Section -->
-  <form method="post" class="text-center mt-4 max-w-xl mx-auto p-6 bg-red-100 rounded-lg shadow-lg border-4 border-blue-600">
+  {% if reviews %}
+  <form method="post"
+    class="text-center mt-4 max-w-xl mx-auto p-6 bg-red-100 rounded-lg shadow-lg border-4 border-blue-600">
     {% for x in reviews%}
     <!-- Individual Review Card -->
-    <div class="font-bold text-xl mb-4">Customer Reviews</div>
-    <!-- Individual Review Card -->
-        <div class="font-semibold text-md mb-2">Name: {{ x['Name'] }}</div>
-<br>
-      <div class="border-2 border-gray-400 p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow mb-8">
-      <!-- Rating Display -->
-        <div class="font-semibold text-md mb-2">Rating: {{ x['Ratings'] }} / 5</div>
-    </div>
-    <div class="border-2 border-gray-400 p-4 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow mb-4">
-    <!-- Comments Display -->
-      <div class="text-sm text-gray-700 text-center">{{ x['Comments'] }}</div>
-     <div class="text-xs text-gray-500 mt-2 border-t pt-2">
-     <!-- Timestamp Display -->
-     Timestamp: {{ x['Timestamp'].strftime('%F') }}
-     </div>
-     {%endfor%}
-    </form>
-
-  <!-- Review Submission Form -->
-<div class="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-200">
-  <h3 class="text-lg font-bold text-gray-900 mb-4">Share your experience</h3>
-  {# Form to submit a review for the product #}
-  <form method="post" action="/product/{{ product['ID'] }}/review" class="space-y-4">
-    <div>
-      <label class="block text-sm font-semibold text-gray-700 mb-1">Overall Rating</label>
-      <div class="flex items-center gap-1 text-yellow-400">
-        <input type="number" name="rating" min="1" max="5" required
-          class="w-20 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
-        <span class="text-gray-500 text-sm">/ 5 Stars</span>
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-sm font-semibold text-gray-700 mb-1">Your Review</label>
-      <textarea name="comments" rows="4" placeholder="What did you like or dislike?"
-        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"></textarea>
-    </div>
-    <button type="submit"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-sm hover:shadow-md transform active:scale-[0.98] transition-all duration-150">
-      Post Review
-    </button>
+    <div class="font-bold text-xl mb-6">Customer Reviews</div>  <!-- Individual Review Box -->
+    <div class="border-2 border-gray-400 p-4 rounded-lg bg-white shadow-md hover:shadow-lg transition mb-6">
+      <div class="font-semibold text-lg mb-1">Name: {{ x['Name'] }}</div>
+      <div class="font-semibold text-md mb-2">Rating: {{ x['Ratings'] }} / 5</div>
+      <div class="text-sm text-gray-700 mb-2">{{ x['Comments'] }}</div>
+      <div class="text-xs text-gray-500 border-t pt-2"> Timestamp: {{ x['Timestamp'].strftime('%F') }} </div>
+    </div> 
+    {% endfor %}
   </form>
-</div>
+{% else %}
+
+  <div
+    class="text-center mt-4 max-w-xl mx-auto p-6 bg-red-100 rounded-lg shadow-lg border-4 border-blue-600 font-bold text-xl">
+    No reviews yet. Be the first to review this product!
+  </div>
+{% endif %}
+  <!-- Review Submission Form -->
+  <div class="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-sm border mt-10 border-4 border-blue-600">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Share your experience</h3>
+    {# Form to submit a review for the product #}
+    <form method="post" action="/product/{{ product['ID'] }}/review" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Overall Rating</label>
+        <div class="flex items-center gap-1 text-yellow-400">
+          <input type="number" name="rating" min="1" max="5" required
+            class="w-20 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+          <span class="text-gray-500 text-sm">/ 5 Stars</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Your Review</label>
+        <textarea name="comments" rows="4" placeholder="What did you like or dislike?"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"></textarea>
+      </div>
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-sm hover:shadow-md transform active:scale-[0.98] transition-all duration-150">
+        Post Review
+      </button>
+    </form>
+  </div>
 
 </body>
 

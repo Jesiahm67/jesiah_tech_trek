@@ -313,7 +313,7 @@ def checkout():
                            (sale, item['ProductID'], item['Quantity']) )
     # clear the cart
         cursor.execute("DELETE FROM `Cart` WHERE `UserID` = %s", (current_user.id) )
-        return redirect("/order")
+        return redirect("/thank_you")
     #thank the user for their purchase
         
     connection.close()

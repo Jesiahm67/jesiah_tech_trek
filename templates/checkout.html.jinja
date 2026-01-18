@@ -81,8 +81,8 @@
           </div>
         </div>
         {# Confirm Purchase Button #}
-        <form method="post" class="w-full">
-            <button class="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold py-4 md:py-5 px-4 rounded-xl shadow-2xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-base md:text-2xl border-b-8 border-green-800 group">
+        <form method="post" class="w-full p-4 md:p-6 text-center">
+            <button class="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold py-4 md:py-5 px-4 rounded-xl shadow-2xl transition-all duration-200 hover:scale-[1.02] active:scale-95 text-base md:text-xl lg:text-2xl border-b-8 border-green-800 group">
                 <span class="inline-block group-hover:animate-pulse">CONFIRM PURCHASE</span>
             </button>
         </form>
@@ -92,7 +92,7 @@
 
     {% else %}
     {# Empty Cart State #}
-    <div class="text-center p-8 md:p-12 bg-yellow-100 rounded-lg shadow-lg border-4 border-blue-600 max-w-xl mx-auto mt-10">
+    <div class="text-center p-8 md:p-12 bg-yellow-100 rounded-lg shadow-lg border-4 border-blue-600 max-w-xl mx-auto mt-10 text-gray-900">
       <p class="text-xl md:text-2xl font-bold mb-6 uppercase">Your cart is empty!</p>
       <a href="/browse" class="inline-block bg-blue-600 text-white px-8 py-3 md:py-4 rounded-full font-black hover:bg-blue-700 transition-all hover:scale-110 shadow-xl">
         GO FIND PARTS

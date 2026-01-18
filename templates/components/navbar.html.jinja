@@ -1,11 +1,11 @@
-<nav class="bg-blue-400 p-4 shadow-lg border-b-4 border-blue-600">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
+<nav class="bg-blue-400 p-4 shadow-lg border-b-4 border-blue-600 mb-6">
+  <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap">
     
     <!-- Logo -->
     <a class="text-xl md:text-2xl font-bold tracking-tight" href="/">Techbar</a>
 
     <!-- Navigation Links -->
-    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 focus:outline-none">
+    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 focus:outline-none ">
       <div class="w-6 h-1 bg-black rounded"></div>
       <div class="w-6 h-1 bg-black rounded"></div>
       <div class="w-6 h-1 bg-black rounded"></div>
@@ -20,9 +20,9 @@
             <a href="/login" class="button-link w-full text-center md:w-auto">Login</a>  
         {% elif current_user.is_authenticated %}
 
-            <a href="/browse" class="hover:underline font-semibold" style="color: indigo;">Browse</a>
+            <a href="/browse" class="hover:underline font-semibold" style="color: brown;">Browse</a>
             <a href="/cart" class="hover:underline font-semibold" style="color: green;">Cart</a> 
-            <a href="/order" class="hover:underline font-semibold" style="color: indigo;">Order</a>
+            <a href="/order" class="hover:underline font-semibold" style="color: red;">Order</a>
             <a href="/logout" class="button-link w-full text-center md:w-auto">Logout</a>
 
 
