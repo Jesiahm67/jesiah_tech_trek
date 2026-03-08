@@ -1,1 +1,0 @@
-# jesiah_tech_trek
